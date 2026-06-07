@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { BossPanelLayoutClient } from "@/features/layouts/BossPanelLayoutClient";
+
+/** Iran Sans Web (FaNum) — Medium = CSS weight 500 */
+const iranSans500 = localFont({
+  src: "../public/fonts/woff2/IRANSansWebFaNum_Medium.woff2",
+  weight: "500",
+  style: "normal",
+  variable: "--font-iransans-500",
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +36,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${iranSans500.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <BossPanelLayoutClient>{children}</BossPanelLayoutClient>
+      </body>
     </html>
   );
 }
