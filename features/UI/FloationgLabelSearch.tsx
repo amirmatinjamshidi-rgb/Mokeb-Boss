@@ -29,11 +29,8 @@ export function FloatingLabelSearch({
   const active = focused || value.length > 0;
 
   return (
-    <div
-      className={cn(containerBase, containerClassName)}
-      dir="rtl"
-    >
-      <div className="relative min-h-[40px] min-w-0 flex-1">
+    <div className={cn(containerBase, containerClassName)} dir="rtl">
+      <div className="relative min-h-10 min-w-0 flex-1">
         <label
           htmlFor={id}
           className={cn(

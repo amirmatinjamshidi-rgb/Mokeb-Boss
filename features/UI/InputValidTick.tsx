@@ -11,8 +11,8 @@ export function InputValidTick({ show, className }: Props) {
 
   return (
     <CircleCheck
-      stroke="green"
-      className={cn("h-5 w-5 shrink-0  text-white", className)}
+      stroke="#175E47"
+      className={cn("h-5 w-5 shrink-0 text-[#175E47]", className)}
       aria-hidden
     />
   );
