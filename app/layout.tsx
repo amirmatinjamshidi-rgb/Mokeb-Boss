@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 import { BossPanelLayoutClient } from "@/features/layouts/BossPanelLayoutClient";
 
@@ -11,16 +11,6 @@ const iranSans500 = localFont({
   style: "normal",
   variable: "--font-iransans-500",
   display: "swap",
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -34,10 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${iranSans500.variable} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${iranSans500.variable}   h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         <BossPanelLayoutClient>{children}</BossPanelLayoutClient>
       </body>

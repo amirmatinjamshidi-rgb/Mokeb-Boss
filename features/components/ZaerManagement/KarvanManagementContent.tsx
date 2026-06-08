@@ -16,7 +16,7 @@ import {
   splitFullName,
   type Accompany,
 } from "../ManagementSchema";
-import { ZaerManagementFormModal } from "./ZaerManagementFormModal";  
+import { ZaerManagementFormModal } from "./ZaerManagementFormModal";
 import { AccompanyViewModal } from "../ManagementViewModal";
 import type { ReservationFilterValues } from "@/features/components/KarvanReservation/ReservationFilters";
 
@@ -151,7 +151,6 @@ export function MyAccompanyContent({ initialAccompanies }: Props) {
     onDelete: handleDelete,
   });
 
-  /** Width/row layout like ReservationFilters FilterSelects; height per spec */
   const actionBtnClass =
     "inline-flex h-[40px] min-h-[40px] w-full min-w-0 flex-1 items-center justify-center gap-2 rounded-xl border border-[#175E47] px-4 text-sm font-medium leading-[22px] text-[#175E47] transition-colors hover:bg-[#F5F9F6]";
 
@@ -175,6 +174,7 @@ export function MyAccompanyContent({ initialAccompanies }: Props) {
         />
         <div className="flex w-full min-w-0 flex-1 flex-col gap-3 md:flex-row md:items-stretch">
           <input
+            placeholder="f"
             ref={fileInputRef}
             type="file"
             accept=".xlsx,.xls,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
