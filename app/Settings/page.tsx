@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Bolt } from "lucide-react";
+import { Bolt, Eraser, MessageSquareText } from "lucide-react";
 import {
   SettingsSections,
   type SettingsSectionId,
 } from "@/features/components/Settings/SettingsSections";
 import UserInfo from "@/features/components/Settings/UserInfo";
 import ModiriatKarvan from "@/features/components/Settings/modiriatKarvan";
+import KarvanInformationSection from "@/features/components/Settings/KarvanInformationSection";
 export default function SettingsPage() {
   const [section, setSection] = useState<SettingsSectionId>("caravan");
 
@@ -27,18 +28,40 @@ export default function SettingsPage() {
       <div
         role="tabpanel"
         aria-labelledby={`settings-tab-${section}`}
-        className="min-h-[200px] w-full max-w-[1108px] max-h-[258px] self-center rounded-xl border border-gray-200 shadow-xs shadow-[#00000024] bg-white p-6 text-sm text-gray-500"
+        className={
+          section === "user"
+            ? "flex w-full max-w-277 flex-col gap-10 self-center"
+            : section === "caravan"
+              ? "h-full w-full max-w-277 max-h-64.5 self-center text-sm text-gray-500 "
+              : "h-full w-full flex flex-row justify-between max-w-277 max-h-64.5 self-center "
+        }
       >
         {section === "caravan" ? (
-         <div className="flex flex-col gap-10">
-          <UserInfo/>
-      
-         
-         <ModiriatKarvan/></div>
+          <>
+            <KarvanInformationSection />
+          </>
         ) : section === "user" ? (
-          <p>محتوای اطلاعات کاربری (به‌زودی)</p>
+          <>
+            <UserInfo />
+            <ModiriatKarvan />
+          </>
         ) : (
-          <p>محتوای مستندات و قرارداد (به‌زودی)</p>
+          <>
+            <button
+              dir="rtl"
+              type="button"
+              className="flex h-14.5 w-full max-w-134  items-center justify-center gap-3 rounded-xl border text-[#175E47] text-sm font-medium  border-[#175E47]"
+            >
+              <Eraser /> قوانین موکب برای کاروان‌ها
+            </button>
+            <button
+              dir="rtl"
+              type="button"
+              className="flex h-14.5 w-full max-w-134 items-center justify-center gap-3 rounded-xl border text-[#175E47] text-sm font-medium  border-[#175E47]"
+            >
+              <MessageSquareText /> شرایط همکاری
+            </button>
+          </>
         )}
       </div>
     </div>

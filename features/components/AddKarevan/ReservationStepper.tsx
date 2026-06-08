@@ -42,7 +42,7 @@ export function ReservationStepper({ activeStep, className }: Props) {
                   aria-hidden
                 />
               ) : null}
-              <div className="flex w-[5.5rem] shrink-0 flex-col items-center gap-2 sm:w-28 md:w-32">
+              <div className="flex w-22 shrink-0 flex-col items-center gap-2 sm:w-28 md:w-32">
                 <div
                   className={cn(
                     "flex size-8 items-center justify-center rounded-full border-2 text-xs font-semibold sm:text-sm",

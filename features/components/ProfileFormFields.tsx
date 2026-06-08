@@ -17,7 +17,6 @@ import {
   ContactRound,
   Droplets,
   Edit,
-  Globe,
   HeartPulse,
   MapPin,
   Phone,
@@ -39,6 +38,12 @@ import FormTextInput from "./FormTextInput";
 import { cn } from "@/features/lib/utils";
 import { colors, CONTROL_H } from "@/features/reservation/tokens";
 import type { ProfileFormValues } from "../lib/profileSchema";
+const radioGreenSx = {
+  padding: "6px",
+  color: colors.neutral04,
+  "&.Mui-checked": { color: colors.primary08 },
+  "&.Mui-disabled": { color: colors.neutral04, opacity: 0.45 },
+} as const;
 const selectSx = {
   height: CONTROL_H,
   borderRadius: "12px",
@@ -246,7 +251,7 @@ export function ProfileFormFields({
                 <div className="w-full">
                   <div
                     className={cn(
-                      "flex h-14 items-center justify-between rounded-xl border border-gray-300 bg-white px-4",
+                      "flex h-14 items-center justify-between  px-4",
                       fieldState.error && "border-red-400",
                     )}
                   >
@@ -261,12 +266,24 @@ export function ProfileFormFields({
                     >
                       <FormControlLabel
                         value="male"
-                        control={<Radio size="small" disabled={disabled} />}
+                        control={
+                          <Radio
+                            size="small"
+                            sx={radioGreenSx}
+                            disabled={disabled}
+                          />
+                        }
                         label="مرد"
                       />
                       <FormControlLabel
                         value="female"
-                        control={<Radio size="small" disabled={disabled} />}
+                        control={
+                          <Radio
+                            size="small"
+                            sx={radioGreenSx}
+                            disabled={disabled}
+                          />
+                        }
                         label="زن"
                       />
                     </RadioGroup>
@@ -329,7 +346,6 @@ export function ProfileFormFields({
                   disabled={disabled}
                 >
                   <div className="relative">
-                    <Globe className="pointer-events-none absolute inset-e-4 top-1/2 z-10 size-5 -translate-y-1/2 text-gray-400" />
                     <Select
                       name={field.name}
                       onBlur={field.onBlur}
