@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Menu, PanelRightClose } from "lucide-react";
+import { PanelRightClose } from "lucide-react";
 import { useState } from "react";
 import type { ReactNode } from "react";
 import { ROUTES } from "@/features/config/navigation";
@@ -11,7 +11,7 @@ import { cn } from "@/features/lib/utils";
 import { USER_PANEL_NAV } from "../config/nav";
 import { useAuthStore } from "../reservation/store/UseAuthStore";
 import { SidebarNav } from "./SideBarNav";
-
+import { NavBar } from "./NavBar";
 type Props = {
   children: ReactNode;
 };
@@ -20,17 +20,17 @@ const sidebarSurfaceClass =
   "flex w-[268px] max-w-[88vw] shrink-0 flex-col gap-10 rounded-tl-2xl rounded-bl-2xl bg-[#71A792] px-4 py-10";
 
 export function UserPanelShell({ children }: Props) {
-    const router = useRouter();
+  const router = useRouter();
   const user = useAuthStore((s) => s.user);
-    const logout = useAuthStore((s) => s.logout);
+  const logout = useAuthStore((s) => s.logout);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-    const handleLogout = () => {
-      logout();
-      setMobileOpen(false);
-      router.push(ROUTES.home);
-      router.refresh();
-    };
+  const handleLogout = () => {
+    logout();
+    setMobileOpen(false);
+    router.push(ROUTES.home);
+    router.refresh();
+  };
 
   const closeMobile = () => setMobileOpen(false);
 
@@ -63,12 +63,6 @@ export function UserPanelShell({ children }: Props) {
       <div className="min-h-0 flex-1 overflow-y-auto bg-[#71A792]">
         <SidebarNav items={USER_PANEL_NAV} onNavigate={closeMobile} />
       </div>
-{/*       
-      <SidebarActionButton
-        label={LOGOUT_ITEM.label}
-        icon={LOGOUT_ITEM.icon}
-        onClick={handleLogout}
-      /> */}
     </>
   );
 
@@ -101,29 +95,8 @@ export function UserPanelShell({ children }: Props) {
         {sidebarContent}
       </aside>
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center justify-between gap-3 border-b border-black/5 bg-white/95 px-4 backdrop-blur sm:h-16 sm:px-6">
-          <div className="flex min-w-0 items-center gap-2">
-            <button
-              type="button"
-              className="rounded-lg p-2 text-[#175E47] hover:bg-[#F5F9F6] lg:hidden"
-              aria-label="باز کردن منو"
-              onClick={() => setMobileOpen(true)}
-            >
-              <Menu className="size-6" />
-            </button>
-            <span className="truncate text-sm font-semibold text-[#175E47] sm:text-base">
-              سامانه رزرو موکب
-            </span>
-          </div>
-          <Link
-            href={ROUTES.generalReservation}
-            className="shrink-0 rounded-xl bg-[#175E47] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#1F7E5F] sm:px-4 sm:text-sm"
-            onClick={closeMobile}
-          >
-            رزرو جدید
-          </Link>
-        </header>
+      <div className="flex min-w-0 flex-1 flex-col " dir="ltr">
+        <NavBar />
 
         <main className="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
           <div className="mx-auto w-full max-w-6xl">{children}</div>
