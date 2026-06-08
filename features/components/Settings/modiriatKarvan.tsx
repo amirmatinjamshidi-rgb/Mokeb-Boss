@@ -1,38 +1,60 @@
+import { cn } from "@/features/lib/utils";
+import { Phone, User } from "lucide-react";
+import { SETTINGS_SECTION_BOX_CLASS } from "@/features/components/Settings/BOX-CLASSES/settingsSectionBox";
+import FormTextInput from "../FormTextInput";
+import { useForm } from "react-hook-form";
 
-import { cn } from '@/features/lib/utils';
-import Document from '@/public/document.png';
-import { SquareCheck } from 'lucide-react';
-import { User } from 'lucide-react';
 type Props = {
-    className?: string;
-}
+  className?: string;
+};
 export default function ModiriatKarvan({ className }: Props) {
   return (
-    <div className={cn('flex w-full max-w-[1108px] flex-col max-h-[258px] gap-10  bg-white p-6 h-full ', className)}>
-       <div className="flex flex-row items-center gap-2">
-  
-        <p className="text-lg font-medium text-gray-500 flex items-center gap-2">< User className="size-12`" />اطلاعات ورود </p>
-       </div>
-       <div className="flex w-full flex-row gap-4 items-center justify-between">
-        <div className="flex items-center gap-[107px] text-gray-500 w-full max-w-[439px] h-full max-h-10">
-            <p>شماره موبایل اصلی:</p>
-            <p>09123456789</p>
+    <div
+      className={cn(
+        SETTINGS_SECTION_BOX_CLASS,
+        "text-sm text-gray-500",
+        className,
+      )}
+    >
+      <div className="flex flex-row items-center gap-12">
+        <p className="flex items-center gap-2 text-lg font-medium text-gray-500">
+          <User className="size-5 shrink-0" aria-hidden />
+          نماینده کاروان
+        </p>
+      </div>
+      <div className="flex w-full flex-row items-center justify-between gap-4">
+        <div className="flex h-full max-h-10 w-full max-w-109.75 items-center gap-16 text-gray-500">
+          <p className=" w-21 text-stretch">نام نماینده</p>
+          <FormTextInput
+            name="fullName"
+            control={useForm().control}
+            placeholder="علی صادقی"
+            rightIcon={User}
+            disabled={false}
+            valueFilter="noDigits"
+          />
         </div>
-        <div className="flex flex-row items-center gap-[107px] text-gray-500 w-full max-w-[439px] h-full max-h-10">
-            <p>وضعیت حساب :</p>
-            <p className="flex flex-row items-center gap-2">
-            <SquareCheck className="size-4" stroke="#23D283"/> 
-            <span className="text-sm font-medium text-[#23D283]">فعال</span>
-            </p>
-        </div>
+        <div className="flex h-full max-h-10 w-full max-w-109.75 flex-row items-center gap-26.75 text-gray-500">
+          <p>شماره موبایل</p>
 
-       </div>
-       <button
-  dir="rtl"
-  className="flex h-[58px] w-full max-w-[398px] self-end items-center justify-center gap-2 rounded-xl border border-[#175E47] text-sm font-medium text-[#175E47]"
->
-  تغییر شماره ورود
-</button>
-    </div> 
-  )
+          <FormTextInput
+            name="fullName"
+            control={useForm().control}
+            placeholder="شماره موبایل"
+            rightIcon={Phone}
+            disabled={false}
+            valueFilter="digits"
+            maxLength={11}
+          />
+        </div>
+      </div>
+      <button
+        dir="rtl"
+        type="button"
+        className="flex h-14.5 w-full max-w-99.5 self-end items-center justify-center gap-2 rounded-xl border border-[#175E47] text-sm font-medium text-white bg-[#175E47]"
+      >
+        تغییر شماره ورود
+      </button>
+    </div>
+  );
 }

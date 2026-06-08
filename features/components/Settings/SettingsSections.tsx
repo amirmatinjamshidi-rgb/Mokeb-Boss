@@ -19,13 +19,9 @@ type Props = {
   className?: string;
 };
 
-
 export function SettingsSections({ value, onValueChange, className }: Props) {
   return (
-    <div
-      className={cn("w-full max-w-[1108px]", className)}
-      dir="rtl"
-    >
+    <div className={cn("w-full max-w-[1108px]", className)} dir="rtl">
       <div
         className="flex h-12 w-full items-end justify-center gap-[104px] border-b-[1.5px] border-[#DFC369]"
         role="tablist"
