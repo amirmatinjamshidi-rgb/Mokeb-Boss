@@ -10,6 +10,9 @@ type Props = {
   children: ReactNode;
 };
 
+/** Set to `true` to send unauthenticated users to the login page again. */
+const LOGIN_REQUIRED = false;
+
 export function UserPanelGate({ children }: Props) {
   const router = useRouter();
   const pathname = usePathname();
@@ -25,6 +28,7 @@ export function UserPanelGate({ children }: Props) {
   }, []);
 
   useEffect(() => {
+    if (!LOGIN_REQUIRED) return;
     if (!hydrated) return;
     if (!user) {
       const q = `returnUrl=${encodeURIComponent(pathname)}`;
@@ -32,18 +36,19 @@ export function UserPanelGate({ children }: Props) {
     }
   }, [hydrated, user, pathname, router]);
 
-  if (!hydrated) {
-    return (
-      <div
-        className="flex min-h-dvh items-center justify-center bg-[#F5F9F6]"
-        dir="rtl"
-      >
-        <p className="text-sm text-[#61756F]">در حال بارگذاری...</p>
-      </div>
-    );
+  if (LOGIN_REQUIRED) {
+    if (!hydrated) {
+      return (
+        <div
+          className="flex min-h-dvh items-center justify-center bg-[#F5F9F6]"
+          dir="rtl"
+        >
+          <p className="text-sm text-[#61756F]">در حال بارگذاری...</p>
+        </div>
+      );
+    }
+    if (!user) return null;
   }
-
-  if (!user) return null;
 
   return <>{children}</>;
 }
