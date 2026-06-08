@@ -6,10 +6,9 @@ import type { LucideIcon } from "lucide-react";
 
 import { cn } from "@/features/lib/utils";
 import type { NavItem } from "../types";
+import Image from "next/image";
 
-function isLucideOrReactComponent(
-  icon: NavItem["icon"],
-): icon is LucideIcon {
+function isLucideOrReactComponent(icon: NavItem["icon"]): icon is LucideIcon {
   if (typeof icon === "function") return true;
   if (icon === null || typeof icon !== "object") return false;
   const $$typeof = (icon as { $$typeof?: symbol }).$$typeof;
@@ -37,7 +36,9 @@ function NavSidebarGlyph({
     typeof (icon as { src: unknown }).src === "string"
   ) {
     return (
-      <img
+      <Image
+        width={28}
+        height={28}
         src={(icon as { src: string }).src}
         alt=""
         className={cn(className, "object-contain")}
