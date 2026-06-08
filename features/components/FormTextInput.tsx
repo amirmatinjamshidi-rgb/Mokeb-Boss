@@ -52,7 +52,6 @@ type FormTextInputProps<T extends FieldValues> = NativeInputProps & {
   helperText?: string;
   showCounter?: boolean;
   maxLength?: number;
-  /** Strip/normalize input: digits-only (mobile, national code), text without digits, passport (Latin + digits) */
   valueFilter?: ValueFilterKind;
 };
 
@@ -148,10 +147,14 @@ export default function FormTextInput<T extends FieldValues>({
           "transition-colors",
           fieldState.error
             ? "border-red-500 ring-1 ring-red-500"
-            : "focus-within:border-[#DBBC59] focus-within:ring-1 focus-within:ring-[#DBBC59]",
+            : isValid
+              ? "border-[#175E47] ring-1 ring-[#175E47]/35"
+              : "focus-within:border-[#DBBC59] focus-within:ring-1 focus-within:ring-[#DBBC59]",
           disabled ? "opacity-60" : "",
         )}
       >
+        <InputValidTick show={isValid} />
+
         {showIconL && LeftIcon ? (
           <LeftIcon
             className={cn("h-5 w-5 shrink-0 text-[#61756F]", leftIconClassName)}
@@ -185,8 +188,6 @@ export default function FormTextInput<T extends FieldValues>({
             )}
           />
         ) : null}
-
-        <InputValidTick show={isValid} />
       </div>
 
       {showLine ? <div className="mt-1 h-px w-full bg-[#DBBC59]" /> : null}
