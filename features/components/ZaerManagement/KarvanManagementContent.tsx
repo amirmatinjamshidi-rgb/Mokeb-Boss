@@ -152,16 +152,16 @@ export function MyAccompanyContent({ initialAccompanies }: Props) {
   });
 
   const actionBtnClass =
-    "inline-flex h-[40px] min-h-[40px] w-full min-w-0 flex-1 items-center justify-center gap-2 rounded-xl border border-[#175E47] px-4 text-sm font-medium leading-[22px] text-[#175E47] transition-colors hover:bg-[#F5F9F6]";
+    "inline-flex h-[40px] min-h-[40px] w-full max-w-[353px] min-w-0 flex-1 items-center justify-center gap-2 rounded-xl border border-[#175E47] px-4 text-sm font-medium leading-[22px] text-[#175E47] transition-colors hover:bg-[#F5F9F6]";
 
   return (
     <div className="flex w-full flex-col gap-8">
-      <h1 className="flex w-full items-center gap-2 text-2xl font-bold text-gray-500 sm:text-3xl">
+      <h1 dir="rtl" className="flex w-full p-8 items-center gap-2 text-2xl font-bold text-gray-500 sm:text-3xl">
         <Users className="size-7 sm:size-8" /> همراهان من
       </h1>
 
       <div
-        className="flex w-full flex-col gap-4 md:flex-row md:items-stretch md:justify-between"
+        className="flex w-full flex-col  gap-16 p-4 md:flex-row md:items-stretch md:justify-between"
         dir="rtl"
       >
         <FloatingLabelSearch
@@ -170,15 +170,15 @@ export function MyAccompanyContent({ initialAccompanies }: Props) {
           value={filters.search}
           onChange={(search) => setFilters({ ...filters, search })}
           icon={<Search className="size-5" />}
-          containerClassName="min-w-0 flex-1"
+          containerClassName="min-w-0 flex-1 max-w-[373px] "
         />
-        <div className="flex w-full min-w-0 flex-1 flex-col gap-3 md:flex-row md:items-stretch">
+        <div className="flex w-full min-w-0 flex-1 flex-col gap-8 md:flex-row md:items-stretch">
           <input
             placeholder="f"
             ref={fileInputRef}
             type="file"
             accept=".xlsx,.xls,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-            className="hidden"
+            className="hidden w-full max-w-[353px]"
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) handleExcelUpload(file);
@@ -186,6 +186,7 @@ export function MyAccompanyContent({ initialAccompanies }: Props) {
             }}
           />
           <button
+          
             type="button"
             className={actionBtnClass}
             onClick={() => fileInputRef.current?.click()}
