@@ -98,9 +98,7 @@ export function UserPanelShell({ children }: Props) {
       <div className="flex min-w-0 flex-1 flex-col " dir="ltr">
         <NavBar />
 
-        <main className="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
-          <div className="mx-auto w-full max-w-6xl">{children}</div>
-        </main>
+        <main className="flex-1 overflow-x-hidden">{children}</main>
       </div>
     </div>
   );
