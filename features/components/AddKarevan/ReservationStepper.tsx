@@ -20,12 +20,13 @@ type Props = {
 export function ReservationStepper({ activeStep, className }: Props) {
   return (
     <div
+      dir="rtl"
       className={cn(
-        "flex min-h-16 w-full items-center justify-center border-b pt-20 border-black/5 bg-white px-1 sm:px-2 md:min-h-19",
+        "flex min-h-16 w-full items-center justify-center px-1 sm:px-2 md:min-h-19",
         className,
       )}
     >
-      <div className="flex w-full max-w-3xl flex-row items-center justify-center px-2 sm:max-w-4xl">
+      <div className="flex w-full flex-row items-center justify-center px-2">
         {STEPS.map((step, index) => {
           const done = activeStep > step.id;
           const current = activeStep === step.id;
@@ -48,7 +49,7 @@ export function ReservationStepper({ activeStep, className }: Props) {
                     "flex size-8 items-center justify-center rounded-full border-2 text-xs font-semibold sm:text-sm",
                     done || current
                       ? "border-[#279F78] bg-[#279F78] text-white"
-                      : "border-[#ACB9B5] bg-white text-[#61756F]",
+                      : "border-[#ACB9B5] bg-transparent text-[#61756F]",
                   )}
                 >
                   {done ? "✓" : index + 1}
