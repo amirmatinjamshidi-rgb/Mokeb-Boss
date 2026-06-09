@@ -2,7 +2,9 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-
+body {
+  background-color: #ffffff;
+}
 @theme inline {
   --spacing-site-gutter: 4.5rem;
   /* Generates max-w-site, max-w-form-row, max-w-nav utilities */
