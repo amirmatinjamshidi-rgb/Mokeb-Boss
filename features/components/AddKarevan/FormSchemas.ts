@@ -3,28 +3,67 @@ import {
   zIranMobile,
   zIranNationalCode,
   zIranPhoneDigits,
+  zPassportId,
   zTextNoDigits,
 } from "@/features/lib/formZodRules";
 
-export const pilgrimSchema = z.object({
-  firstName: zTextNoDigits("نام"),
-  lastName: zTextNoDigits("نام خانوادگی"),
-  nickName: z.union([
-    z.literal(""),
-    zTextNoDigits("نام مستعار"),
-  ]),
-  fatherName: zTextNoDigits("نام پدر"),
-  gender: z.enum(["male", "female"]),
-  nationality: z.enum(["iranian", "foreign"]),
-  nationalCode: zIranNationalCode,
-  province: zTextNoDigits("استان محل سکونت"),
-  city: zTextNoDigits("شهر محل سکونت"),
-  mobile1: zIranMobile,
-  mobile2: zIranMobile,
-  relativePhone: zIranPhoneDigits,
-  bloodType: zTextNoDigits("گروه خونی"),
-  diseaseHistory: z.string(),
-});
+/** Re-export: ASCII digits only + “الزامی” when empty (use for custom fields). */
+export { zDigitsOnly, zTextNoDigits } from "@/features/lib/formZodRules";
+
+/** Required trimmed non-empty string (any characters). */
+export const required = (label: string) =>
+  z.string().trim().min(1, `${label} الزامی است`);
+
+/**
+ * یک زائر — نام‌ها با `zTextNoDigits`؛
+ * `nationalCode` برای ایرانی = کد ملی، برای غیرایرانی = شماره پاسپورت (همان فیلد).
+ */
+export const pilgrimSchema = z
+  .object({
+    firstName: zTextNoDigits("نام"),
+    lastName: zTextNoDigits("نام خانوادگی"),
+    nickName: z.string(),
+    fatherName: zTextNoDigits("نام پدر"),
+    gender: z.enum(["male", "female"]),
+    nationality: z.enum(["iranian", "foreign"]),
+    nationalCode: z.string(),
+    province: zTextNoDigits("استان محل سکونت"),
+    city: zTextNoDigits("شهر محل سکونت"),
+    mobile1: zIranMobile,
+    mobile2: zIranMobile,
+    relativePhone: zIranPhoneDigits,
+    bloodType: z.string(),
+    diseaseHistory: z.string(),
+  })
+  .superRefine((data, ctx) => {
+    const raw = data.nationalCode.trim();
+    if (!raw.length) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message:
+          data.nationality === "iranian"
+            ? "کد ملی الزامی است"
+            : "شماره پاسپورت الزامی است",
+        path: ["nationalCode"],
+      });
+      return;
+    }
+    if (data.nationality === "iranian") {
+      const r = zIranNationalCode.safeParse(raw);
+      if (!r.success) {
+        for (const issue of r.error.issues) {
+          ctx.addIssue({ ...issue, path: ["nationalCode"] });
+        }
+      }
+    } else {
+      const r = zPassportId.safeParse(raw);
+      if (!r.success) {
+        for (const issue of r.error.issues) {
+          ctx.addIssue({ ...issue, path: ["nationalCode"] });
+        }
+      }
+    }
+  });
 
 export type PilgrimFormValues = z.infer<typeof pilgrimSchema>;
 
